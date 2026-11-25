@@ -50,6 +50,15 @@ ROWS = [
 ]
 
 
+def insert_recall(con, number, date, title, *, units_text="About 10", units=10, sold_at="", hazard="Fire"):
+    """Add one recall to a fixture DB; the other columns get filler."""
+    con.execute(
+        "INSERT INTO recalls VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        (None, number, title, date, date, "", hazard, "", "", "Thing", "", units_text, units, sold_at, "", "",
+         f"https://example.test/recalls/{number}"),
+    )
+
+
 def build(path: str) -> None:
     con = sqlite3.connect(path)
     con.executescript(SCHEMA)

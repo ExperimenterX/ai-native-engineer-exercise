@@ -102,3 +102,34 @@ Restart your client after you change the server's code, so it picks up the new v
    - What you did not check.
    - The questions you would have asked Dana, and the assumptions you made.
    - Which AI tools you used.
+
+## Take-Home Implementation
+
+**Author:** Bhavani Shankar
+
+### Changes Implemented
+
+- Added `sum_units` for unit aggregation by year or retailer, with indicators for ambiguous unit counts.
+- Added retailer filtering and data freshness warnings through `server_status`.
+- Fixed calendar-year filtering, missing note retrieval, and silent pagination truncation.
+- Added read-only database access for read operations, note validation, and literal wildcard matching.
+
+### Architecture
+
+The implementation separates responsibilities across three layers:
+
+- `server.py`: MCP initialization, tool registration, and interface definitions.
+- `recall_server/tools.py`: Application logic, validation, and tool orchestration.
+- `recall_server/db.py`: Database access, SQL queries, and pattern matching.
+
+This separation improves maintainability and allows application logic to be tested independently of the MCP transport.
+
+### Testing and Verification
+
+- All 48 automated tests passed.
+- All five supplied scenarios were verified through the actual MCP server.
+- Results were independently cross-checked against raw SQL on a database copy.
+
+### Engineering Handoff
+
+See [HANDOFF.md](./HANDOFF.md) for the production-readiness verdict, data freshness findings, known limitations, assumptions, next steps, and AI tooling disclosure.
